@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visual Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
+    <meta name="description" content="Visual ChatBot: Lets talk to bot!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.scrolltofixed/0.1/jquery-scrolltofixed-min.js"></script>
+    <script src="{% static 'js/dropzone.js' %}"></script>
+</head>
+<style type="text/css">
+.brand-logo {
+    font-weight: 200;
+}
+
+.side-nav {
+    z-index: -1;
+}
+
+.side-nav li {
+    height: 60px;
+}
+
+.card-panel {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 0 0;
+    display: inline-block;
+}
+
+nav .nav-wrapper {
+    background: #3B5998 !important;
+}
+
+.message_typing {
+    margin-top: 20px !important;
+}
+
+#question {
+    padding-left: 1em;
+    font-size: 16px;
+}
+
+input[type=text]:focus:not([readonly]) {
+    border-bottom: 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.navbar-fixed {
+    margin-bottom: 10px;
+}
+
+#mobile-demo {
+    margin-top: 56px;
+}
+
+.arrow_box {
+    position: relative;
+    background: #3B5998;
+    border: 10px solid #f5f5f5;
+}
+
+.arrow_box:after,
+.arrow_box:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: rgba(59, 89, 152, 0);
+    border-left-color: #3B5998;
+    border-width: 25px;
+    margin-top: -25px;
+}
+
+.arrow_box:before {
+    border-color: rgba(245, 245, 245, 0);
+    border-left-color: #f5f5f5;
+    border-width: 39px;
+    margin-top: -39px;
+}
+
+.clearHistoryAndAddPicDiv {
+    padding-left: 0 !important;
+}
+
+#dragAndDropContentHeading {
+    vertical-align: middle;
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    width: 30%;
+    margin-left: -50px;
+    margin-top: -25px;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 200 !important;
+}
+
+.chat:last-child,
+.chatImage:last-child {
+    margin-bottom: 70px;
+}
+</style>
+
+<body>
+    <header>
+        {% block header%}
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo center">Visual Chatbot</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse" id="menu-icon"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li class="about"><a href="#aboutModal">About</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li class="about"><a href="#aboutModal">About</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        {% endblock %} {% block sidebar %}
+        <ul id="chat-list" class="side-nav fixedv z-index-0 hide-on-med-and-down grey lighten-5" style="transform: translateX(0%);">
+            <li class="sidebar_li">
+                <a href="#"><img class="circle responsive-img left" src="http://materializecss.com/images/yuna.jpg">Deshraj Yadav</a>
+            </li>
+        </ul>
+        {% endblock %}
+    </header>
+    {% block messages %} {% endblock %} {% block message_typing %} {% endblock %}
+
+    <script type="text/javascript">
+    // Initialize materialbox
+    $(document).ready(function() {
+        $('.materialboxed').materialbox();
+        $(".button-collapse").sideNav();
+    });
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45466017-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,358 @@
+{% extends 'chat/base.html' %} {% load static %} {% block sidebar %} {% endblock %} {% block messages %}
+<div class="messages">
+    <div class="row chat chat_bot_row">
+        <img src="{% static 'images/bot.png'%}" width="40px" height="50px" class="circle" align="left">
+        <div class="col s9 l7 left chat_bot">
+            <div class="card-panel black-text grey lighten-3">
+                <span class="black-text">{{ bot_intro_message }}</span>
+            </div>
+        </div>
+    </div>
+    <h2 id="dragAndDropContentHeading" class="grey-text lighten-1" align="center">Drag and Drop Image here</h2>
+</div>
+{% endblock %} {% block message_typing %}
+<nav class="message_typing z-depth-3">
+    <div class="nav-wrapper">
+        <div class="row">
+            <div class="col s2 l1 clearHistoryAndAddPicDiv">
+                <div class="col s6 l6 center">
+                    <i class="material-icons clearHistory center" style="cursor:pointer">refresh</i>
+                </div>
+                <div class="col s6 l6 file-field center">
+                    <input type="file" id="uploadImage" name="file" accept="image/*">
+                    <i class="material-icons center">add_a_photo</i>
+                </div>
+            </div>
+            <div class="col s7 input-field">
+                <input id="question" type="text" placeholder="Start typing question here ..." autocomplete="off">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="col s2 right sendQuestionButton">
+                <i class="material-icons right" style="cursor:pointer">send</i>
+            </div>
+        </div>
+    </div>
+</nav>
+<script type="text/javascript">
+function submitQuestion() {
+    var question = $("#question").val();
+    if (question.length >= 3) {
+        $("#question").val('');
+        showUserQuestion(question);
+        // Now remove "?" from the question
+        question = question.replace(/\?/g, '');
+
+        if (image == "") { // Handles the condition when no image is uploaded yet 
+            message = "Ummm...I think you forgot to upload an image. Please upload an image to continue. :-)";
+            showBotResponse(message);
+        } else {
+            image_question_mapping.push({
+                image_url: image_url,
+                question_id: question_id
+            });
+            question_id = question_id + 1;
+
+            var formData = new FormData();
+            formData.append('img_path', image);
+            formData.append('history', prev_history);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            formData.append('socketid', '{{ socketid }}');
+            formData.append('question', question);
+            formData.append('job_id', job_id);
+            $.ajax({
+                    type: 'POST',
+                    url: '{% url 'home' %}',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                })
+                .done(function(response) {
+                    justClearedHistory = false; // Now user can click clear history
+                });
+        }
+    }
+}
+</script>
+<script type="text/javascript">
+var image = "";
+var image_url = "";
+var prev_history = "";
+var job_id = null;
+var image_question_mapping = [];
+var question_id = 1;
+var currentUploadedImageDiv = ""; // set the current uploaded image div
+var justClearedHistory = true;
+var scrollHeightOnClearHistory = 60;
+$("#question").keypress(function(e) {
+    var key = e.which;
+    if (key == 13) // the enter key code
+    {
+        submitQuestion();
+    }
+});
+
+// Below function is to show the preview of file being uploaded
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var formData = new FormData();
+        formData.append('file', input.files[0]);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        formData.append('socketid', '{{ socketid }}');
+        $.ajax({
+                type: 'POST',
+                url: '{% url 'upload' %}',
+                data: formData,
+                processData: false,
+                contentType: false,
+            })
+            .done(function(response) {
+                image = response['file_path'];
+                image_url = response['img_url'];
+                job_id = response['job_id'];
+            });
+
+        $("#dragAndDropContentHeading").hide();
+        var userChatDiv = $('<div class="row chatImage chat_row_human "></div>');
+        var userColDiv = $('<div class="col s8 m8 l7 right"></div>');
+        var userCardPanelDiv = $('<div class="card-panel right uploadedImageCard"></div>');
+        var imageElement = $('<img src="" class="uploadedImage materialboxed responsive-img" width="300px">');
+        $(userCardPanelDiv).prepend(imageElement);
+        $(userColDiv).prepend(userCardPanelDiv);
+        $(userChatDiv).prepend(userColDiv);
+        $(".messages").append(userChatDiv);
+
+        $(currentUploadedImageDiv).trigger('detach.ScrollToFixed');
+        currentUploadedImageDiv = userChatDiv;
+
+        if ($(window).width() >= 600) {
+            $(userChatDiv).scrollToFixed({
+                marginTop: $(".nav-wrapper").innerHeight() + 5,
+                zIndex: 500,
+                fixed: function() {},
+                unfixed: function() {
+                    $(userCardPanelDiv).removeClass("right");
+                    $(userCardPanelDiv).addClass("left");
+                },
+            });
+        }
+
+        reader.onload = function(e) {
+            $(imageElement).attr('src', e.target.result);
+            $("html, body").animate({
+                scrollTop: $(document).height() - $(window).height()
+            }, 1000);
+        }
+        reader.readAsDataURL(input.files[0]);
+        $('.materialboxed').materialbox();
+        message = "Please wait for a few seconds while a caption is being generated for the uploaded image.";
+        showBotResponse(message);
+    }
+}
+
+$("input:file").change(function() {
+    readURL(this);
+});
+</script>
+
+<script type="text/javascript">
+var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+var socket = new WebSocket(ws_scheme + '://' + window.location.host + "/chat" + window.location.pathname);
+socket.onopen = function() {
+    socket.send("{{ socketid }}");
+}
+socket.onmessage = function(response) {
+    response = JSON.parse(response.data);
+    if ("result" in response) {
+        result = JSON.parse(response['result']);
+        prev_history = result['history'];
+
+        if ("answer" in result) {
+            var bot_message = result['answer'];
+        } else if ("pred_caption" in result) {
+            prev_history = result['pred_caption'];
+            var bot_message = "<b>Caption: </b>" + result['pred_caption'];
+        }
+        // Show the answer predcited by Bot
+        var botChatDiv = $('<div class="row chat chat_bot_row"></div>');
+        var botImage = $('<img src="{% static 'images/bot.png'%}" width="40px" height="50px" class="circle" align="left">');
+        var botColDiv = $('<div class="col s9 l7 left chat_bot"></div>');
+        var botCardPanelDiv = $('<div class="card-panel black-text grey lighten-3"></div>');
+
+        $(botCardPanelDiv).prepend('<span class="black-text">' + bot_message + '</span>');
+        $(botColDiv).prepend(botCardPanelDiv);
+        $(botChatDiv).prepend(botColDiv);
+        $(botChatDiv).prepend(botImage);
+        $(".messages").append(botChatDiv);
+        $("body").animate({
+            scrollTop: $(document).height() - $(window).height()
+        }, {
+            complete: function() {
+                lastChatDiv = $(".chat").last();
+                lastChatDivTop = lastChatDiv.offset().top;
+                scrollHeightOnClearHistory = Math.abs($(".nav-wrapper").offset().top - lastChatDivTop);
+                $("#question").focus();
+            }
+        });
+        $("body").animate({
+            scrollTop: $(document).height() - $(window).height()
+        }, 100);
+    }
+}
+
+$(".clearHistory").click(function() {
+    if (!justClearedHistory) {
+        prev_history = "";
+
+        var botChatDiv = $('<div class="row chat chat_bot_row"></div>');
+        var botImage = $('<img src="{% static 'images/bot.png' %}" width="40px" height="50px" class="circle" align="left">');
+        var botColDiv = $('<div class="col s9 l4 left chat_bot"></div>');
+        var botCardPanelDiv = $('<div class="card-panel black-text grey lighten-1"></div>');
+
+        $(botCardPanelDiv).prepend('<span class="black-text">I have cleared the history. Lets have a fresh conversation about this image!</span>');
+        $(botColDiv).prepend(botCardPanelDiv);
+        $(botChatDiv).prepend(botColDiv);
+        $(botChatDiv).prepend(botImage);
+        $(".messages").append(botChatDiv);
+
+        scrollup_height = scrollHeightOnClearHistory - 10;
+        $(".messages").animate({
+            height: $('.messages').css('height', '+=' + scrollup_height)
+        }, {
+            queue: false,
+            duration: 100,
+            easing: 'easeOutBounce',
+            complete: function() {
+                $("body").animate({
+                    scrollTop: $(document).height() - $(window).height()
+                }, 100);
+                $("#question").focus();
+                justClearedHistory = true;
+            }
+        });
+    } else {
+        var $toastContent = $('<span>Already cleared history!</span>');
+        Materialize.toast($toastContent, 1500, 'rounded');
+    }
+});
+
+// Press enter key when click the send button
+$(".sendQuestionButton").click(function() {
+    $("#question").focus();
+    var e = jQuery.Event("keydown");
+    e.keyCode = 50;
+    $("#question").trigger(e);
+    submitQuestion();
+});
+</script>
+
+<script type="text/javascript">
+$(".messages").css("min-height", $(window).height() - $("nav-wrapper").height() - $(".message_typing").height() - 50);
+
+if ($(window).width() >= 600) {
+    Dropzone.autoDiscover = false;
+
+    var myDropzone = new Dropzone(".messages", {
+        url: "{%url 'upload'%}",
+        previewTemplate: '<div style="display:none"></div>',
+        autoProcessQueue: true,
+        init: function() {
+            this.hiddenFileInput.removeAttribute('multiple');
+        }
+    });
+
+    myDropzone.on("addedfile", function(file) {
+        readURL($("input:file"));
+    });
+
+    myDropzone.on("sending", function(file, xhr, formData) {
+        // Will send the filesize along with the file as POST data.
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        formData.append('socketid', '{{ socketid }}');
+    });
+
+    myDropzone.on("success", function(file, response) {
+
+        // hide the drag and drop heading shown
+        $("#dragAndDropContentHeading").hide();
+        prev_history = "";
+
+        image = response['file_path'];
+        image_url = response['img_url'];
+
+        var userChatDiv = $('<div class="chatImage row chat_row_human "></div>');
+        var userColDiv = $('<div class="col s8 m8 l7 right"></div>');
+        var userCardPanelDiv = $('<div class="card-panel right uploadedImageCard"></div>');
+        var imageElement = $('<img src="" class="uploadedImage materialboxed responsive-img" width="300px">');
+        $(userCardPanelDiv).prepend(imageElement);
+        $(userColDiv).prepend(userCardPanelDiv);
+        $(userChatDiv).prepend(userColDiv);
+        $(".messages").append(userChatDiv);
+
+        $(imageElement).attr("src", image_url);
+
+        $(currentUploadedImageDiv).trigger('detach.ScrollToFixed');
+        currentUploadedImageDiv = userChatDiv;
+
+        $(userChatDiv).scrollToFixed({
+            marginTop: $(".nav-wrapper").innerHeight() + 5,
+            zIndex: 500,
+            fixed: function() {},
+            unfixed: function() {
+                $(userCardPanelDiv).removeClass("right");
+                $(userCardPanelDiv).addClass("left");
+            },
+        });
+
+        message = "Please wait for a few seconds while a caption is being generated for the uploaded image.";
+        showBotResponse(message);
+
+        myDropzone.on("queuecomplete", function(file) {
+            $("html, body").animate({
+                scrollTop: $(document).height() - $(window).height()
+            }, 1000);
+            $('.materialboxed').materialbox();
+            $("#question").focus();
+        });
+    });
+
+    $(".dz-hidden-input").prop("disabled", true);
+} else {
+    $("#dragAndDropContentHeading").hide();
+}
+</script>
+
+<script type="text/javascript">
+function showUserQuestion(question) {
+    var userChatDiv = $('<div class="row chat chat_row_human"></div>');
+    var userColDiv = $('<div class="col s9 l7 right"></div>');
+    var userCardPanelDiv = $('<div class="card-panel light-blue darken-4 right tooltipped" id="' + question_id + '"></div>');
+
+    $(userCardPanelDiv).prepend('<span class="white-text">' + question + '</span>');
+    $(userColDiv).prepend(userCardPanelDiv);
+    $(userChatDiv).prepend(userColDiv);
+    $(".messages").append(userChatDiv);
+
+    $("html, body").animate({
+        scrollTop: $(document).height() - $(window).height()
+    }, 100);
+}
+
+function showBotResponse(message) {
+    var botChatDiv = $('<div class="row chat chat_bot_row"></div>');
+    var botImage = $('<img src="{% static 'images/bot.png' %}" width="40px" height="50px" class="circle" align="left">');
+    var botColDiv = $('<div class="col s9 l7 left chat_bot"></div>');
+    var botCardPanelDiv = $('<div class="card-panel black-text grey lighten-3"></div>');
+
+    $(botCardPanelDiv).prepend('<span class="black-text">' + message + '</span>');
+    $(botColDiv).prepend(botCardPanelDiv);
+    $(botChatDiv).prepend(botColDiv);
+    $(botChatDiv).prepend(botImage);
+    $(".messages").append(botChatDiv);
+    $("html, body").animate({
+        scrollTop: $(document).height() - $(window).height()
+    }, 100);
+
+}
+</script>
+{% include 'chat/modal.html'%} {% endblock %}

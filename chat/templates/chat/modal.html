@@ -1,0 +1,22 @@
+<div id="aboutModal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>About</h4>
+        <h5>What is Visual Dialog?</h5>
+        <p>Visual Dialog is a novel task that requires an AI agent to hold a meaningful dialog with humans in natural, conversational language about visual content. Specifically, given an image, a dialog history, and a follow-up question about the image, the agent has to answer the question.</p>
+        <p>For more details about the task and models, please visit <a href="http://visualdialog.org">visualdialog.org</a></p>
+        <h4>Acknowledgments</h4>
+        <ul>
+            <li><a href="https://github.com/karpathy/neuraltalk2/">Neuraltalk2</a></li>
+            <li><a href="https://github.com/hughperkins/pytorch">PyTorch</a></li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.about').click(function() {
+        $('.modal').openModal();
+    });
+});
+</script>

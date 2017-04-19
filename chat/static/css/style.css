@@ -1,0 +1,38 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+.message_typing {
+    position: fixed;
+    z-index: 100;
+    bottom: 0 !important;
+    left: 0px;
+    width: 100%;
+}
+
+.side-nav a {
+    height: 72px;
+    vertical-align: middle;
+    text-align: left;
+    padding-top: 10px;
+}
+
+.sidebar_li {
+    margin-bottom: 10px;
+    align-items: left;
+    vertical-align: middle !important;
+}
+
+#chat-list {
+    margin-top: 60px;
+}
+
+.circle {
+    vertical-align: middle;
+}
+
+.chat_bot_row,
+.chat_bot {
+    padding: 0 0.5rem;
+}
