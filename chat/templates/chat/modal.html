@@ -1,13 +1,18 @@
 <div id="aboutModal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>About</h4>
-        <h5>What is Visual Dialog?</h5>
-        <p>Visual Dialog is a novel task that requires an AI agent to hold a meaningful dialog with humans in natural, conversational language about visual content. Specifically, given an image, a dialog history, and a follow-up question about the image, the agent has to answer the question.</p>
-        <p>For more details about the task and models, please visit <a href="http://visualdialog.org">visualdialog.org</a></p>
-        <h4>Acknowledgments</h4>
+        <h5>About</h5>
+        <p>This is a demo of <a href="//visualdialog.org">Visual Dialog</a>, accompanying the <a href="//arxiv.org/abs/1611.08669">CVPR 2017 paper</a>, hosted on <a href="//cloudcv.org">CloudCV</a>.</p>
+        <p>Visual Dialog is a novel task that requires an AI agent to hold a meaningful dialog with humans in natural, conversational language about visual content. Given an image, dialog history, and a follow-up question about the image, the agent has to answer the question.</p>
+        <p>Code for this demo is available at <a href="//github.com/cloud-cv/visual-chatbot">github.com/cloud-cv/visual-chatbot</a> and Torch code for training and evaluating Visual Dialog models is available at <a href="//github.com/batra-mlp-lab/visdial">github.com/batra-mlp-lab/visdial</a>.</p>
+        <p>For more details about the dataset, task and models, please visit <a href="http://visualdialog.org">visualdialog.org</a>.</p>
+        <h5>Terms of Service</h5>
         <ul>
-            <li><a href="https://github.com/karpathy/neuraltalk2/">Neuraltalk2</a></li>
-            <li><a href="https://github.com/hughperkins/pytorch">PyTorch</a></li>
+            <li>Text or media that you upload on the demo will be stored and used for research purposes.</li>
+        </ul>
+        <h5>Acknowledgments</h5>
+        <ul>
+            <li>We use <a href="https://github.com/karpathy/neuraltalk2/">neuraltalk2</a> to generate captions for seeding dialog.</li>
+            <li><a href="https://github.com/hughperkins/pytorch">PyTorch</a> serves as our bridge between the model code in (Lua)Torch and Python web backend.</li>
         </ul>
     </div>
     <div class="modal-footer">

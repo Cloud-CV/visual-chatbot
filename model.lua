@@ -451,9 +451,9 @@ function Model:generateAnswers(dataloader, params, batch, iter)
 		    -- get the updated cost for each explored candidate, pool
 		    candBeam[step] = topInd[candId];
 		    if topInd[candId] == endToken then
-			table.insert(finishBeams, {beam = candBeam:double():squeeze(), length = step, score = scores[wordId] + topProb[candId]});
+			table.insert(finishBeams, {beam = candBeam:double():squeeze(), length = step, score = (scores[wordId] * (step-1) + topProb[candId]) / step});
 		    else
-			table.insert(cands, {score = scores[wordId] + topProb[candId],
+			table.insert(cands, {score = (scores[wordId] * (step-1) + topProb[candId]) / step,
 						beam = candBeam,
 						hidden = curHidden});
 		    end
