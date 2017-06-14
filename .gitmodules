@@ -1,0 +1,3 @@
+[submodule "neuraltalk2"]
+	path = neuraltalk2
+	url = https://github.com/karpathy/neuraltalk2.git

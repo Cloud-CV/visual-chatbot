@@ -78,6 +78,7 @@ Download and install CUDA and cuDNN from [nvidia website](https://developer.nvid
 ```shell
 git clone https://github.com/Cloud-CV/visual-chatbot.git
 cd visual-chatbot
+git submodule init && git submodule update
 sh models/download_models.sh
 pip install -r requirements.txt
 ```
