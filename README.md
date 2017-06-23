@@ -83,6 +83,12 @@ sh models/download_models.sh
 pip install -r requirements.txt
 ```
 
+If you have not used nltk before, you will need to download a tokenization model.
+
+```shell
+python -m nltk.downloader punkt
+```
+
 Change lines 2-4 of `neuraltalk2/misc/LanguageModel.lua` to the following:
 
 ```shell
@@ -91,9 +97,16 @@ local net_utils = require 'neuraltalk2.misc.net_utils'
 local LSTM = require 'neuraltalk2.misc.LSTM'
 ```
 
+### Create the database
+
+```shell
+python manage.py makemigrations chat
+python manage.py migrate
+```
+
 ### Running the RabbitMQ workers and Development Server
 
-Open 2 different terminal sessions and run the following commands:
+Open 3 different terminal sessions and run the following commands:
 
 ```shell
 python worker.py
