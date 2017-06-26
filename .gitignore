@@ -1,0 +1,11 @@
+data/
+media/
+
+*.pyc
+db.sqlite3
+ques_feat.json
+
+*.t7
+models/*.caffemodel
+models/*.lua
+models/*.prototxt
