@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from .sender import visdial, captioning
+from .sender import svqa, captioning
 from .utils import log_to_terminal
 from .models import Job, Dialog
 
@@ -35,7 +35,7 @@ def home(request, template_name="chat/index.html"):
             if q_tokens[-1] != "?":
                 question = "{0}{1}".format(question, "?")
 
-            response = visdial(str(question), str(history),
+            response = svqa(str(question), str(history),
                             str(abs_image_path), socketid, job_id)
             return JsonResponse({"success": True})
         except Exception, err:
@@ -51,7 +51,7 @@ def upload_image(request):
     if request.method == "POST":
         image = request.FILES['file']
         socketid = request.POST.get('socketid')
-        output_dir = os.path.join(settings.MEDIA_ROOT, 'visdial', socketid)
+        output_dir = os.path.join(settings.MEDIA_ROOT, 'svqa', socketid)
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -63,7 +63,7 @@ def upload_image(request):
 
         captioning(img_path, socketid, job.id)
 
-        return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": job.id})
+        return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": socketid})
 
 
 def handle_uploaded_file(f, path):
