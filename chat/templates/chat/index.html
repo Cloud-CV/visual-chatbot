@@ -34,49 +34,10 @@
     </div>
 </nav>
 <script type="text/javascript">
-function submitQuestion() {
-    var question = $("#question").val();
-    if (question.length >= 3) {
-        $("#question").val('');
-        showUserQuestion(question);
-        // Now remove "?" from the question
-        question = question.replace(/\?/g, '');
-
-        if (image == "") { // Handles the condition when no image is uploaded yet 
-            message = "Ummm...I think you forgot to upload an image. Please upload an image to continue. :-)";
-            showBotResponse(message);
-        } else {
-            image_question_mapping.push({
-                image_url: image_url,
-                question_id: question_id
-            });
-            question_id = question_id + 1;
-
-            var formData = new FormData();
-            formData.append('img_path', image);
-            formData.append('history', prev_history);
-            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-            formData.append('socketid', '{{ socketid }}');
-            formData.append('question', question);
-            formData.append('job_id', job_id);
-            $.ajax({
-                    type: 'POST',
-                    url: '{% url 'home' %}',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                })
-                .done(function(response) {
-                    justClearedHistory = false; // Now user can click clear history
-                });
-        }
-    }
-}
-</script>
-<script type="text/javascript">
 var image = "";
 var image_url = "";
 var prev_history = "";
+var generated_caption = "";
 var job_id = null;
 var image_question_mapping = [];
 var question_id = 1;
@@ -171,6 +132,7 @@ socket.onmessage = function(response) {
             var bot_message = result['answer'];
         } else if ("pred_caption" in result) {
             prev_history = result['pred_caption'];
+            generated_caption = result['pred_caption'];
             var bot_message = "<b>Caption: </b>" + result['pred_caption'];
         }
         // Show the answer predcited by Bot
@@ -202,14 +164,14 @@ socket.onmessage = function(response) {
 
 $(".clearHistory").click(function() {
     if (!justClearedHistory) {
-        prev_history = "";
+        prev_history = generated_caption;
 
         var botChatDiv = $('<div class="row chat chat_bot_row"></div>');
         var botImage = $('<img src="{% static 'images/bot.png' %}" width="40px" height="50px" class="circle" align="left">');
         var botColDiv = $('<div class="col s9 l4 left chat_bot"></div>');
         var botCardPanelDiv = $('<div class="card-panel black-text grey lighten-1"></div>');
 
-        $(botCardPanelDiv).prepend('<span class="black-text">I have cleared the history. Lets have a fresh conversation about this image!</span>');
+        $(botCardPanelDiv).prepend('<span class="black-text">I have cleared the history. Let\'s have a fresh conversation about this image!</span>');
         $(botColDiv).prepend(botCardPanelDiv);
         $(botChatDiv).prepend(botColDiv);
         $(botChatDiv).prepend(botImage);
@@ -226,6 +188,8 @@ $(".clearHistory").click(function() {
                 $("body").animate({
                     scrollTop: $(document).height() - $(window).height()
                 }, 100);
+                var message = "<b>Caption: </b>" + generated_caption;
+                showBotResponse(message);
                 $("#question").focus();
                 justClearedHistory = true;
             }
@@ -353,6 +317,46 @@ function showBotResponse(message) {
         scrollTop: $(document).height() - $(window).height()
     }, 100);
 
+}
+</script>
+<script type="text/javascript">
+function submitQuestion() {
+    var question = $("#question").val();
+    if (question.length >= 3) {
+        $("#question").val('');
+        showUserQuestion(question);
+        // Now remove "?" from the question
+        question = question.replace(/\?/g, '');
+
+        if (image == "") { // Handles the condition when no image is uploaded yet 
+            message = "Ummm...I think you forgot to upload an image. Please upload an image to continue. :-)";
+            showBotResponse(message);
+        } else {
+            image_question_mapping.push({
+                image_url: image_url,
+                question_id: question_id
+            });
+            question_id = question_id + 1;
+
+            var formData = new FormData();
+            formData.append('img_path', image);
+            formData.append('history', prev_history);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            formData.append('socketid', '{{ socketid }}');
+            formData.append('question', question);
+            formData.append('job_id', job_id);
+            $.ajax({
+                    type: 'POST',
+                    url: '{% url 'home' %}',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                })
+                .done(function(response) {
+                    justClearedHistory = false; // Now user can click clear history
+                });
+        }
+    }
 }
 </script>
 {% include 'chat/modal.html'%} {% endblock %}
