@@ -45,6 +45,7 @@ channel = connection.channel()
 
 channel.queue_declare(queue='visdial_task_queue', durable=True)
 
+django.db.close_old_connections()
 
 def callback(ch, method, properties, body):
     try:
@@ -69,6 +70,8 @@ def callback(ch, method, properties, body):
             Dialog.objects.create(job=job, question=result['question'], answer=result['answer'].replace("<START>", "").replace("<END>", ""))
         except:
             print str(traceback.print_exc())
+
+        django.db.close_old_connections()
 
     except Exception, err:
         print str(traceback.print_exc())
