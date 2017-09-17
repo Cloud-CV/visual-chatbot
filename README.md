@@ -132,7 +132,7 @@ If you find this code useful, consider citing our work:
 
 ## Contributors
 
-* [Deshraj Yadav][2] (deshraj@vt.edu)
+* [Deshraj Yadav][2] (deshraj@gatech.edu)
 * [Abhishek Das][3] (abhshkdz@gatech.edu)
 
 ## License
