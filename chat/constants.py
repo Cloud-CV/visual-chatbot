@@ -22,7 +22,7 @@ VISDIAL_CONFIG = {
     'input_json': 'data/chat_processed_params_0.9.json',
     'load_path': 'models/hre-qih-g-new.t7',
     'result_path': 'results',
-    'gpuid': -1,
+    'gpuid': 0,
     'backend': 'cudnn',
     'proto_file': 'models/VGG_ILSVRC_16_layers_deploy.prototxt',
     'model_file': 'models/VGG_ILSVRC_16_layers.caffemodel',
@@ -54,4 +54,4 @@ if CAPTIONING_GPUID == -1:
     CAPTIONING_CONFIG['backend'] = "nn"
     CAPTIONING_CONFIG['model_path'] = "neuraltalk2/model_id1-501-1448236541.t7_cpu.t7"
 else:
-    CAPTIONING_CONFIG['backend'] = "nn"
+    CAPTIONING_CONFIG['backend'] = "cudnn"
