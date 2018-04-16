@@ -7,7 +7,7 @@ import sys
 import json
 
 
-def visdial(input_question, history, image_path, socketid, job_id):
+def svqa(input_question, history, image_path, socketid, job_id):
     connection = pika.BlockingConnection(pika.ConnectionParameters(
         host='localhost'))
     channel = connection.channel()

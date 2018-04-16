@@ -31,6 +31,8 @@ VISDIAL_CONFIG = {
     'sampleWords': 0,
     'temperature': 1.0,
     'maxThreads': 500,
+    'encoder': 'hre-ques-im-hist',
+    'decoder': 'disc'
 }
 
 VISDIAL_LUA_PATH = "evaluate.lua"
