@@ -139,6 +139,11 @@ If you find this code useful, consider citing our work:
 
 BSD
 
+## Credits
+
+- Visual Chatbot Image: "[Robot-clip-art-book-covers-feJCV3-clipart](https://commons.wikimedia.org/wiki/File:Robot-clip-art-book-covers-feJCV3-clipart.png)" by [Wikimedia Commons](https://commons.wikimedia.org) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+
+
 [1]: https://arxiv.org/abs/1611.08669
 [2]: http://deshraj.github.io
 [3]: https://abhishekdas.com
