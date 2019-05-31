@@ -1,29 +1,31 @@
 from __future__ import absolute_import
 
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'visdial.settings')
+import sys
+print(sys.executable)
 
 import django
 django.setup()
 
 from django.conf import settings
 from chat.utils import log_to_terminal
-from chat.models import Job, Dialog
+from chat.models import Job
 
 import chat.constants as constants
 
-import PyTorch
-import PyTorchHelpers
 import pika
-import time
 import yaml
 import json
 import traceback
 
+from models import CaptioningTorchDummyModel
+
 django.db.close_old_connections()
 
-CaptioningModel = PyTorchHelpers.load_lua_class(
-    constants.CAPTIONING_LUA_PATH, 'CaptioningTorchModel')
+CaptioningModel = CaptioningTorchDummyModel
+
 CaptioningTorchModel = CaptioningModel(
     constants.CAPTIONING_CONFIG['model_path'],
     constants.CAPTIONING_CONFIG['backend'],
@@ -52,6 +54,7 @@ def callback(ch, method, properties, body):
         result['input_image'] = str(result['input_image']).replace(settings.BASE_DIR, '')
         log_to_terminal(body['socketid'], {"result": json.dumps(result)})
         ch.basic_ack(delivery_tag=method.delivery_tag)
+        print('succesfull callback')
 
         try:
             Job.objects.filter(id=int(body['job_id'])).update(caption=result['pred_caption'])
