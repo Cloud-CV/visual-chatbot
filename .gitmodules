@@ -1,3 +1,12 @@
 [submodule "neuraltalk2"]
 	path = neuraltalk2
 	url = https://github.com/karpathy/neuraltalk2.git
+[submodule "viscap/captioning/vqa-maskrcnn-benchmark"]
+	path = viscap/captioning/vqa-maskrcnn-benchmark
+	url = https://gitlab.com/yashkant/vqa-maskrcnn-benchmark/
+[submodule "viscap/captioning/fastText"]
+	path = viscap/captioning/fastText
+	url = https://github.com/facebookresearch/fastText
+[submodule "viscap/captioning/pythia"]
+	path = viscap/captioning/pythia
+	url = https://github.com/facebookresearch/pythia/
