@@ -59,12 +59,12 @@ def callback(ch, method, properties, body):
         try:
             Job.objects.filter(id=int(body['job_id'])).update(caption=result['pred_caption'])
         except Exception as e:
-            print str(traceback.print_exc())
+            print(str(traceback.print_exc()))
 
         django.db.close_old_connections()
 
-    except Exception, err:
-        print str(traceback.print_exc())
+    except Exception:
+        print(str(traceback.print_exc()))
 
 channel.basic_consume(callback,
                       queue='visdial_captioning_task_queue')

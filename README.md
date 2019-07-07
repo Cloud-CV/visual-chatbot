@@ -140,8 +140,9 @@ If you find this code useful, consider citing our work:
 BSD
 
 ## Helpful Issues 
-Problems installing uwsgi: https://github.com/unbit/uwsgi/issues/1770
+Problems installing uwsgi: https://github.com/unbit/uwsgi/issues/1770 
 
+Problems with asgiref: https://stackoverflow.com/questions/41335478/importerror-no-module-named-asgiref-base-layer 
 ## Credits
 
 - Visual Chatbot Image: "[Robot-clip-art-book-covers-feJCV3-clipart](https://commons.wikimedia.org/wiki/File:Robot-clip-art-book-covers-feJCV3-clipart.png)" by [Wikimedia Commons](https://commons.wikimedia.org) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
