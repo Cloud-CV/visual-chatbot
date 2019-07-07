@@ -9,18 +9,14 @@ django.setup()
 from django.conf import settings
 from chat.utils import log_to_terminal
 from chat.models import Job, Dialog
-
+from models import VisDialDummyModel
 import chat.constants as constants
-import PyTorch
-import PyTorchHelpers
 import pika
-import time
 import yaml
 import json
 import traceback
 
-VisDialModel = PyTorchHelpers.load_lua_class(
-    constants.VISDIAL_LUA_PATH, 'VisDialTorchModel')
+VisDialModel = VisDialDummyModel
 
 VisDialATorchModel = VisDialModel(
     constants.VISDIAL_CONFIG['input_json'],
@@ -47,6 +43,7 @@ channel.queue_declare(queue='visdial_task_queue', durable=True)
 
 django.db.close_old_connections()
 
+
 def callback(ch, method, properties, body):
     try:
         body = yaml.safe_load(body)
@@ -69,12 +66,12 @@ def callback(ch, method, properties, body):
             job = Job.objects.get(id=int(body['job_id']))
             Dialog.objects.create(job=job, question=result['question'], answer=result['answer'].replace("<START>", "").replace("<END>", ""))
         except:
-            print str(traceback.print_exc())
+            print(str(traceback.print_exc()))
 
         django.db.close_old_connections()
 
-    except Exception, err:
-        print str(traceback.print_exc())
+    except Exception:
+        print(str(traceback.print_exc()))
 
 channel.basic_consume(callback,
                       queue='visdial_task_queue')

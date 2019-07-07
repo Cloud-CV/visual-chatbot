@@ -9,3 +9,12 @@ ques_feat.json
 models/*.caffemodel
 models/*.lua
 models/*.prototxt
+*.zip
+
+# Pycharm
+.idea/
+
+# Installed packages
+pytorch/
+migrations/
+!migrations/__init__.py

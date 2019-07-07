@@ -13,7 +13,7 @@ import uuid
 import os
 import traceback
 import random
-import urllib2
+import urllib
 
 
 def home(request, template_name="chat/index.html"):
@@ -28,7 +28,7 @@ def home(request, template_name="chat/index.html"):
             job_id = request.POST.get("job_id")
             history = request.POST.get("history", "")
 
-            img_path = urllib2.unquote(img_path)
+            img_path = urllib.parse.unquote(img_path)
             abs_image_path = str(img_path)
 
             q_tokens = word_tokenize(str(question))
@@ -38,7 +38,7 @@ def home(request, template_name="chat/index.html"):
             response = svqa(str(question), str(history),
                             str(abs_image_path), socketid, job_id)
             return JsonResponse({"success": True})
-        except Exception, err:
+        except Exception:
             return JsonResponse({"success": False})
 
     elif request.method == "GET":
