@@ -66,12 +66,12 @@ def callback(ch, method, properties, body):
             job = Job.objects.get(id=int(body['job_id']))
             Dialog.objects.create(job=job, question=result['question'], answer=result['answer'].replace("<START>", "").replace("<END>", ""))
         except:
-            print str(traceback.print_exc())
+            print(str(traceback.print_exc()))
 
         django.db.close_old_connections()
 
-    except Exception, err:
-        print str(traceback.print_exc())
+    except Exception:
+        print(str(traceback.print_exc()))
 
 channel.basic_consume(callback,
                       queue='visdial_task_queue')

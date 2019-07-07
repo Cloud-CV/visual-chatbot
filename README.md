@@ -139,6 +139,9 @@ If you find this code useful, consider citing our work:
 
 BSD
 
+## Helpful Issues 
+Problems installing uwsgi: https://github.com/unbit/uwsgi/issues/1770
+
 ## Credits
 
 - Visual Chatbot Image: "[Robot-clip-art-book-covers-feJCV3-clipart](https://commons.wikimedia.org/wiki/File:Robot-clip-art-book-covers-feJCV3-clipart.png)" by [Wikimedia Commons](https://commons.wikimedia.org) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
