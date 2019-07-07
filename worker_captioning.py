@@ -1,10 +1,7 @@
 from __future__ import absolute_import
 
 import os
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'visdial.settings')
-import sys
-print(sys.executable)
 
 import django
 django.setup()
