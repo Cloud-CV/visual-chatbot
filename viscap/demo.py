@@ -6,7 +6,7 @@ import yaml
 
 from captioning import DetectCaption, build_detection_model, build_caption_model
 from visdialch.data import Vocabulary
-from visdialch.data.demo_object import DemoObject
+from visdialch.data.demo_manager import DemoSessionManager
 from visdialch.model import EncoderDecoderModel
 
 parser = argparse.ArgumentParser(
@@ -126,7 +126,7 @@ detect_caption_model = DetectCaption(
 )
 
 # Pass the Captioning and Encoder-Decoder models and initialize DemoObject
-demo_object = DemoObject(
+demo_manager = DemoSessionManager(
     detect_caption_model,
     enc_dec_model,
     vocabulary,
@@ -135,27 +135,29 @@ demo_object = DemoObject(
 )
 
 # =============================================================================
-#   EVALUATION LOOP
+#   DEMO LOOP
 # =============================================================================
 
+# Switch dropout, batchnorm etc to the correct mode.
 enc_dec_model.eval()
 
 # Extract features and build caption for the image
-demo_object.set_image(args.imagepath)
-print(f"Caption: {demo_object.get_caption()}")
+demo_manager.set_image(args.imagepath)
+print(f"Caption: {demo_manager.get_caption()}")
 while True:
-    user_question = input("Type Question: ").lower()
-    answer = demo_object.respond(user_question)
+
+    # Input question, respond to it and update history
+    user_question = input("Type Question: ")
+    answer = demo_manager.respond(user_question)
     print(f"Answer: {answer}")
-    demo_object.update(question=user_question, answer=answer)
 
     while True:
         user_input = input("Change Image? [(y)es/(n)o]: ").lower()
         if user_input == 'y' or user_input == 'yes':
             print("-"*50)
             user_image = input("Enter New Image Path: ")
-            demo_object.set_image(user_image)
-            print(f"Caption: {demo_object.get_caption()}")
+            demo_manager.set_image(user_image)
+            print(f"Caption: {demo_manager.get_caption()}")
 
         elif user_input == 'n' or user_input == 'no':
             break

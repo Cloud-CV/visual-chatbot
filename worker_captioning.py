@@ -44,12 +44,14 @@ print(' [*] Waiting for messages. To exit press CTRL+C')
 def callback(ch, method, properties, body):
     try:
         body = yaml.safe_load(body)
+        print(f"body: {body}")
         result = CaptioningTorchModel.predict(
                                               body['image_path'],
                                               constants.CAPTIONING_CONFIG['input_sz'],
                                               constants.CAPTIONING_CONFIG['input_sz'])
+        print(f"result: {result}")
         result['input_image'] = str(result['input_image']).replace(settings.BASE_DIR, '')
-        log_to_terminal(body['socketid'], {"result": json.dumps(result)})
+        log_to_terminal(body['socketid'], {"log-result": json.dumps(result)})
         ch.basic_ack(delivery_tag=method.delivery_tag)
         print('succesfull callback')
 
@@ -63,7 +65,6 @@ def callback(ch, method, properties, body):
     except Exception:
         print(str(traceback.print_exc()))
 
-channel.basic_consume(callback,
-                      queue='visdial_captioning_task_queue')
 
+channel.basic_consume(callback, queue='visdial_captioning_task_queue')
 channel.start_consuming()

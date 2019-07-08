@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from .sender import svqa, captioning
+from .sender import svqa, captioning, viscap
 from .utils import log_to_terminal
 from .models import Job, Dialog
 
@@ -23,20 +23,13 @@ def home(request, template_name="chat/index.html"):
         try:
             socketid = request.POST.get("socketid")
             question = request.POST.get("question")
-            question = question.replace("?", "").lower()
             img_path = request.POST.get("img_path")
             job_id = request.POST.get("job_id")
             history = request.POST.get("history", "")
-
             img_path = urllib.parse.unquote(img_path)
             abs_image_path = str(img_path)
+            viscap(str(abs_image_path), socketid, job_id, str(question), str(history))
 
-            q_tokens = word_tokenize(str(question))
-            if q_tokens[-1] != "?":
-                question = "{0}{1}".format(question, "?")
-
-            response = svqa(str(question), str(history),
-                            str(abs_image_path), socketid, job_id)
             return JsonResponse({"success": True})
         except Exception:
             return JsonResponse({"success": False})
@@ -46,7 +39,7 @@ def home(request, template_name="chat/index.html"):
                                                "socketid": socketid,
                                                "bot_intro_message": intro_message})
 
-
+# Create a Job for captioning
 def upload_image(request):
     if request.method == "POST":
         image = request.FILES['file']
@@ -58,10 +51,8 @@ def upload_image(request):
         img_path = os.path.join(output_dir, str(image))
         handle_uploaded_file(image, img_path)
         img_url = img_path.replace(settings.BASE_DIR, "")
-
         job = Job.objects.create(job_id=socketid, image=img_url)
-
-        captioning(img_path, socketid, job.id)
+        viscap(img_path, socketid, job.id)
 
         return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": socketid})
 
