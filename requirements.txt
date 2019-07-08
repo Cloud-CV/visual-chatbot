@@ -13,3 +13,4 @@ websocket-client==0.37.0
 daphne==0.15.0
 tqdm==4.8.4
 psycopg2==2.7.1
+redis==2.10.6

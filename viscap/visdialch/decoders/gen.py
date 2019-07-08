@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from visdialch.utils.beam_search import BeamSearch
+from viscap.visdialch.utils.beam_search import BeamSearch
 from typing import Dict, Tuple
 
 

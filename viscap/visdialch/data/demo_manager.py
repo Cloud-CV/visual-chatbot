@@ -5,8 +5,11 @@ from typing import Any, Dict, Optional
 from mosestokenizer import MosesDetokenizer
 from nltk.tokenize import word_tokenize
 from torch.nn.functional import normalize
-from visdialch.data import VisDialDataset
 from urllib.parse import urlparse
+
+from viscap.captioning import DetectCaption
+from viscap.visdialch.data import Vocabulary
+from viscap.visdialch.model import EncoderDecoderModel
 
 
 class DemoSessionManager:
@@ -40,7 +43,7 @@ class DemoSessionManager:
 
     def __init__(
             self,
-            caption_model: PythiaCaptioning,
+            caption_model: DetectCaption,
             enc_dec_model: EncoderDecoderModel,
             vocabulary: Vocabulary,
             config: Dict[str, Any],

@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-from visdialch.utils import DynamicRNN
+from viscap.visdialch.utils import DynamicRNN
 
 
 class DiscriminativeDecoder(nn.Module):

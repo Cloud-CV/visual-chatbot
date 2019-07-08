@@ -1,5 +1,9 @@
+# Demo
 /data/
 media/
+viscap/captioning/model_data/
+viscap/checkpoints/
+viscap/data/
 
 *.pyc
 db.sqlite3

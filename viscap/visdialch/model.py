@@ -1,8 +1,8 @@
 from torch import nn
 
-from visdialch.decoders import Decoder
-from visdialch.encoders import Encoder
-from visdialch.utils.checkpointing import load_checkpoint
+from viscap.visdialch.decoders import Decoder
+from viscap.visdialch.encoders import Encoder
+from viscap.visdialch.utils.checkpointing import load_checkpoint
 
 # TODO: Modify docstring and hints
 class EncoderDecoderModel(nn.Module):

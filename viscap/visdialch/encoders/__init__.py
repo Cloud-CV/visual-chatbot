@@ -1,4 +1,4 @@
-from visdialch.encoders.lf import LateFusionEncoder
+from viscap.visdialch.encoders.lf import LateFusionEncoder
 
 
 def Encoder(model_config, *args):

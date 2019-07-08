@@ -1,9 +1,9 @@
 # Keep only vocabulary builder argument
 dataset:
-  image_features_train_h5: 'data/features_faster_rcnn_x101_train.h5'
-  image_features_val_h5: 'data/features_faster_rcnn_x101_val.h5'
-  image_features_test_h5: 'data/features_faster_rcnn_x101_test.h5'
-  word_counts_json: 'data/visdial_1.0_word_counts_train.json'
+  image_features_train_h5: 'viscap/data/features_faster_rcnn_x101_train.h5'
+  image_features_val_h5: 'viscap/data/features_faster_rcnn_x101_val.h5'
+  image_features_test_h5: 'viscap/data/features_faster_rcnn_x101_test.h5'
+  word_counts_json: 'viscap/data/visdial_1.0_word_counts_train.json'
 
   img_norm: 1
   concat_history: true
@@ -27,11 +27,11 @@ model:
 # Captioning related arguments
 captioning:
   model_data_dir: '../../'
-  text_caption_processor_vocab_txt: 'captioning/model_data/vocabulary_captioning_thresh5.txt'
+  text_caption_processor_vocab_txt: 'viscap/captioning/model_data/vocabulary_captioning_thresh5.txt'
   butd_model:
-    config_yaml: 'captioning/model_data/butd.yaml'
-    model_pth: 'captioning/model_data/butd.pth'
+    config_yaml: 'viscap/captioning/model_data/butd.yaml'
+    model_pth: 'viscap/captioning/model_data/butd.pth'
   detectron_model:
-    config_yaml: 'captioning/model_data/detectron_model.yaml'
-    model_pth: 'captioning/model_data/detectron_model.pth'
+    config_yaml: 'viscap/captioning/model_data/detectron_model.yaml'
+    model_pth: 'viscap/captioning/model_data/detectron_model.pth'
     feat_name: 'fc6'

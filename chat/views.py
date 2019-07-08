@@ -54,7 +54,7 @@ def upload_image(request):
         job = Job.objects.create(job_id=socketid, image=img_url)
         viscap(img_path, socketid, job.id)
 
-        return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": socketid})
+        return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": job.id})
 
 
 def handle_uploaded_file(f, path):

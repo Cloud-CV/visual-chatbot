@@ -4,10 +4,10 @@ import os
 import torch
 import yaml
 
-from captioning import DetectCaption, build_detection_model, build_caption_model
-from visdialch.data import Vocabulary
-from visdialch.data.demo_manager import DemoSessionManager
-from visdialch.model import EncoderDecoderModel
+from viscap.captioning import DetectCaption, build_detection_model, build_caption_model
+from viscap.visdialch.data import Vocabulary
+from viscap.visdialch.data.demo_manager import DemoSessionManager
+from viscap.visdialch.model import EncoderDecoderModel
 
 parser = argparse.ArgumentParser(
     "Run Visual-Dialog Demo"
