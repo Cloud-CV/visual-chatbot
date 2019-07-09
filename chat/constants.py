@@ -35,7 +35,6 @@ VISDIAL_CONFIG = {
     'decoder': 'disc'
 }
 
-VISDIAL_LUA_PATH = "evaluate.lua"
 
 CAPTIONING_GPUID = 2
 
@@ -48,7 +47,6 @@ CAPTIONING_CONFIG = {
     'image_dir': os.path.join(settings.BASE_DIR, 'media', 'captioning')
 }
 
-CAPTIONING_LUA_PATH = "captioning.lua"
 
 if CAPTIONING_GPUID == -1:
     CAPTIONING_CONFIG['backend'] = "nn"

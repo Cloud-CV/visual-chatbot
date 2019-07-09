@@ -1,6 +1,7 @@
 # Demo
 /data/
 media/
+viscap/captioning/detectron/
 viscap/captioning/model_data/
 viscap/checkpoints/
 viscap/data/
