@@ -84,49 +84,49 @@ for arg in vars(args):
 # =============================================================================
 #   BUILD VOCABULARY | LOAD MODELS: ENC-DEC, CAPTIONING
 # =============================================================================
-# dataset_config = config["dataset"]
-# model_config = config["model"]
-# captioning_config = config["captioning"]
-#
-# vocabulary = Vocabulary(
-#     dataset_config["word_counts_json"],
-#     min_count=dataset_config["vocab_min_count"]
-# )
-# # Build Encoder-Decoder model and load its checkpoint
-# enc_dec_model = EncoderDecoderModel(model_config, vocabulary).to(device)
-# enc_dec_model.load_checkpoint(args.load_pthpath)
-#
-# # Build the detection and captioning model and load their checkpoints
-# # Path to the checkpoints are picked from captioning_config
-# detection_model = build_detection_model(captioning_config, device)
-# caption_model, caption_processor, text_processor = build_caption_model(
-#     captioning_config,
-#     device
-# )
-#
-# # Wrap the detection and caption models together
-# detect_caption_model = DetectCaption(
-#     detection_model,
-#     caption_model,
-#     caption_processor,
-#     text_processor,
-#     device
-# )
-#
-# # Pass the Captioning and Encoder-Decoder models and initialize DemoObject
-# demo_manager = DemoSessionManager(
-#     detect_caption_model,
-#     enc_dec_model,
-#     vocabulary,
-#     config,
-#     device
-# )
+dataset_config = config["dataset"]
+model_config = config["model"]
+captioning_config = config["captioning"]
+
+vocabulary = Vocabulary(
+    dataset_config["word_counts_json"],
+    min_count=dataset_config["vocab_min_count"]
+)
+# Build Encoder-Decoder model and load its checkpoint
+enc_dec_model = EncoderDecoderModel(model_config, vocabulary).to(device)
+enc_dec_model.load_checkpoint(args.load_pthpath, device)
+
+# Build the detection and captioning model and load their checkpoints
+# Path to the checkpoints are picked from captioning_config
+detection_model = build_detection_model(captioning_config, device)
+caption_model, caption_processor, text_processor = build_caption_model(
+    captioning_config,
+    device
+)
+
+# Wrap the detection and caption models together
+detect_caption_model = DetectCaption(
+    detection_model,
+    caption_model,
+    caption_processor,
+    text_processor,
+    device
+)
+
+# Pass the Captioning and Encoder-Decoder models and initialize DemoObject
+demo_manager = DemoSessionManager(
+    detect_caption_model,
+    enc_dec_model,
+    vocabulary,
+    config,
+    device
+)
 
 # =============================================================================
 #   DEMO
 # =============================================================================
 
-# enc_dec_model.eval()
+enc_dec_model.eval()
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     host='localhost'))
 
@@ -141,8 +141,7 @@ def callback(ch, method, properties, body):
         body = yaml.safe_load(body)
         if body['type'] == "visdial":
             # go for the visdial-run
-            # answer = demo_manager.respond(body['input_question'])
-            answer = "Answer"
+            answer = demo_manager.respond(body['input_question'])
             result = {
                 'answer': answer,
                 'question': body['input_question']
@@ -150,17 +149,14 @@ def callback(ch, method, properties, body):
             log_to_terminal(body['socketid'], {"result": json.dumps(result)})
             ch.basic_ack(delivery_tag=method.delivery_tag)
             try:
-                print("printing:",body['job_id'])
                 job = Job.objects.get(id=int(body['job_id']))
                 Dialog.objects.create(job=job, question=body['input_question'], answer=answer)
             except:
                 print(str(traceback.print_exc()))
-
         else:
             # go for the caption-run
-            # demo_manager.set_image(body['image_path'])
-            # caption = demo_manager.get_caption()
-            caption = "This is caption"
+            demo_manager.set_image(body['image_path'])
+            caption = demo_manager.get_caption()
             result = {
                 'pred_caption': caption
             }
@@ -170,7 +166,6 @@ def callback(ch, method, properties, body):
                 Job.objects.filter(id=int(body['job_id'])).update(
                     caption=caption
                 )
-                print('this works')
             except Exception as e:
                 print(str(traceback.print_exc()))
         django.db.close_old_connections()

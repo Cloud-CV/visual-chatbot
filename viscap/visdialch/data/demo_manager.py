@@ -8,7 +8,7 @@ from torch.nn.functional import normalize
 from urllib.parse import urlparse
 
 from viscap.captioning import DetectCaption
-from viscap.visdialch.data import Vocabulary
+from viscap.visdialch.data import Vocabulary, VisDialDataset
 from viscap.visdialch.model import EncoderDecoderModel
 
 

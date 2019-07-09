@@ -1,3 +1,4 @@
+import torch
 from torch import nn
 
 from viscap.visdialch.decoders import Decoder
@@ -41,8 +42,8 @@ class EncoderDecoderModel(nn.Module):
         decoder_output = self.decoder(encoder_output, batch)
         return decoder_output
 
-    def load_checkpoint(self, load_pthpath):
-        model_state_dict, _ = load_checkpoint(load_pthpath)
+    def load_checkpoint(self, load_pthpath, device):
+        model_state_dict, _ = load_checkpoint(load_pthpath, device)
         if isinstance(self, nn.DataParallel):
             self.module.load_state_dict(model_state_dict)
         else:

@@ -17,7 +17,13 @@ def build_caption_model(caption_config, cuda_device):
     registry.register("config", config)
 
     caption_processor, text_processor = init_processors(caption_config, config)
-    state_dict = torch.load(caption_config["butd_model"]["model_pth"])
+
+    if cuda_device == torch.device('cpu'):
+        state_dict = torch.load(caption_config["butd_model"]["model_pth"],
+                                map_location='cpu')
+    else:
+        state_dict = torch.load(caption_config["butd_model"]["model_pth"])
+
     model_config = config.model_attributes.butd
     model_config.model_data_dir = caption_config["model_data_dir"]
     model = BUTD(model_config)

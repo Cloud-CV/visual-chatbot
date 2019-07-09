@@ -29,7 +29,7 @@ captioning:
   model_data_dir: '../../'
   text_caption_processor_vocab_txt: 'viscap/captioning/model_data/vocabulary_captioning_thresh5.txt'
   butd_model:
-    config_yaml: 'viscap/captioning/model_data/butd.yaml'
+    config_yaml: 'viscap/captioning/model_data/butd.yml'
     model_pth: 'viscap/captioning/model_data/butd.pth'
   detectron_model:
     config_yaml: 'viscap/captioning/model_data/detectron_model.yaml'

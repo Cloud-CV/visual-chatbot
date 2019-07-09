@@ -124,7 +124,7 @@ class CheckpointManager(object):
             return self.model.state_dict()
 
 
-def load_checkpoint(checkpoint_pthpath):
+def load_checkpoint(checkpoint_pthpath, device=None):
     """Given a path to saved checkpoint, load corresponding state dicts
     of model and optimizer from it. This method checks if the current
     commit SHA of codebase matches the commit SHA recorded when this
@@ -134,6 +134,10 @@ def load_checkpoint(checkpoint_pthpath):
     ----------
     checkpoint_pthpath: str or pathlib.Path
         Path to saved checkpoint (as created by ``CheckpointManager``).
+
+    device: torch.device()
+        If ``torch.device('cpu')`` we remap all the tensors to cpu during
+        ``torch.load()``
 
     Returns
     -------
@@ -175,5 +179,8 @@ def load_checkpoint(checkpoint_pthpath):
             )
 
     # load encoder, decoder, optimizer state_dicts
-    components = torch.load(checkpoint_pthpath)
+    if device == torch.device('cpu'):
+        components = torch.load(checkpoint_pthpath, map_location='cpu')
+    else:
+        components = torch.load(checkpoint_pthpath)
     return components["model"], components["optimizer"]
