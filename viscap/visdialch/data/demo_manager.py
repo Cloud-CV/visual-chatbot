@@ -8,9 +8,9 @@ from torch.nn.functional import normalize
 from urllib.parse import urlparse
 
 from viscap.captioning import DetectCaption
-from viscap.visdialch.data import Vocabulary, VisDialDataset
+from viscap.visdialch.data import Vocabulary
 from viscap.visdialch.model import EncoderDecoderModel
-
+from viscap.visdialch.utils.history_builder import pad_sequences, get_history
 
 class DemoSessionManager:
     """
@@ -96,7 +96,7 @@ class DemoSessionManager:
         if question is not None:
             question = word_tokenize(question)
             question = self.vocabulary.to_indices(question)
-            pad_question, question_length = VisDialDataset._pad_sequences(
+            pad_question, question_length = pad_sequences(
                 self.dataset_config,
                 self.vocabulary,
                 [question]
@@ -140,7 +140,7 @@ class DemoSessionManager:
             self.answer_lengths.append(len(answer))
 
         # history does not take in padded inputs! 
-        self.history, self.history_lengths = VisDialDataset._get_history(
+        self.history, self.history_lengths = get_history(
             self.dataset_config,
             self.vocabulary,
             self.image_caption,

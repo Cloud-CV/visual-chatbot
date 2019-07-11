@@ -21,7 +21,6 @@ django.setup()
 from chat.utils import log_to_terminal
 from chat.models import Job, Dialog
 
-django.db.close_old_connections()
 
 
 parser = argparse.ArgumentParser(
@@ -113,7 +112,7 @@ detect_caption_model = DetectCaption(
     device
 )
 
-# Pass the Captioning and Encoder-Decoder models and initialize DemoObject
+# Pass the Captioning and Encoder-Decoder models, initialize DemoSessionManager
 demo_manager = DemoSessionManager(
     detect_caption_model,
     enc_dec_model,
@@ -121,12 +120,13 @@ demo_manager = DemoSessionManager(
     config,
     device
 )
-
-# =============================================================================
-#   DEMO
-# =============================================================================
-
 enc_dec_model.eval()
+
+# =============================================================================
+#   BUILD VISDIAL-CAPTIONING QUEUE
+# =============================================================================
+
+django.db.close_old_connections()
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     host='localhost'))
 
