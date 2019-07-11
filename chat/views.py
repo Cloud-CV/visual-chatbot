@@ -1,24 +1,21 @@
-from nltk.tokenize import word_tokenize
-
-from django.conf import settings
-from django.shortcuts import render
-from django.http import JsonResponse
-
-from .sender import svqa, captioning, viscap
-from .utils import log_to_terminal
-from .models import Job, Dialog
-
-import chat.constants as constants
-import uuid
 import os
-import traceback
 import random
 import urllib
+import uuid
+
+from django.conf import settings
+from django.http import JsonResponse
+from django.shortcuts import render
+
+import chat.constants as constants
+from .models import Job
+from .sender import viscap
 
 
 def home(request, template_name="chat/index.html"):
     socketid = uuid.uuid4()
     intro_message = random.choice(constants.BOT_INTORDUCTION_MESSAGE)
+
     if request.method == "POST":
         try:
             socketid = request.POST.get("socketid")
@@ -39,13 +36,14 @@ def home(request, template_name="chat/index.html"):
                                                "socketid": socketid,
                                                "bot_intro_message": intro_message})
 
+
 # Create a Job for captioning
 def upload_image(request):
+
     if request.method == "POST":
         image = request.FILES['file']
         socketid = request.POST.get('socketid')
         output_dir = os.path.join(settings.MEDIA_ROOT, 'svqa', socketid)
-
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         img_path = os.path.join(output_dir, str(image))
@@ -55,6 +53,8 @@ def upload_image(request):
         viscap(img_path, socketid, job.id)
 
         return JsonResponse({"file_path": img_path, "img_url": img_url, "job_id": job.id})
+    else:
+        raise TypeError("Only POST requests allowed, check request method!")
 
 
 def handle_uploaded_file(f, path):

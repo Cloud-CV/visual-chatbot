@@ -11,7 +11,7 @@ from pythia.utils.configuration import ConfigNode
 
 def build_caption_model(caption_config, cuda_device):
     with open(caption_config["butd_model"]["config_yaml"]) as f:
-        config = yaml.load(f)
+        config = yaml.load(f, Loader=yaml.FullLoader)
     config = ConfigNode(config)
     config.training_parameters.evalai_inference = True
     registry.register("config", config)
