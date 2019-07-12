@@ -3,7 +3,7 @@ Visual Chatbot
 ============
 Demo for the paper (**Now upgraded to Pytorch, for the Lua-Torch version see [tag]()**). 
 
-**[Visual Dialog][1]**  (CVPR 2017 [Spotlight][4])
+**[Visual Dialog][1]**  (CVPR 2017 [Spotlight][4]) </br>
 Abhishek Das, Satwik Kottur, Khushi Gupta, Avi Singh, Deshraj Yadav, José M. F. Moura, Devi Parikh, Dhruv Batra  
 Arxiv Link: [arxiv.org/abs/1611.08669][1]  
 Live demo: http://visualchatbot.cloudcv.org
