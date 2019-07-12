@@ -8,6 +8,7 @@ Abhishek Das, Satwik Kottur, Khushi Gupta, Avi Singh, Deshraj Yadav, José M. F.
 Arxiv Link: [arxiv.org/abs/1611.08669][1]  
 Live demo: http://visualchatbot.cloudcv.org
 
+[![Visual Chatbot](chat/static/images/screenshot.png)](http://www.youtube.com/watch?v=SztC8VOWwRQ&t=13s "Visual Chatbot")
 
 Introduction
 ---------------
