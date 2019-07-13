@@ -109,7 +109,6 @@ class DemoSessionManager:
 
         return data
 
-    # Call this method as we have new dialogs (ques/ans pairs) in conversation.
     def _update(
             self,
             question: Optional[str] = None,
@@ -150,7 +149,6 @@ class DemoSessionManager:
         )
         self.num_rounds += 1
 
-    # Call this method to reset data, this is used internally by set_image()
     def _reset(self):
         r""" Delete all the data of the current conversation.  This is used
         internally by the ``self.set_image`` method.
@@ -164,7 +162,6 @@ class DemoSessionManager:
         self.history, self.history_lengths = [], []
         self.num_rounds = 0
 
-    # Download, extract features and build caption for the image
     def set_image(self, image_path):
         r""" Build a dict object for inference inside the Visdial
         model. This is used internally by the ``respond`` method.
