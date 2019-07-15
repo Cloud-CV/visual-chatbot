@@ -140,8 +140,8 @@ BSD
 - Visual Chatbot Image: "[Robot-clip-art-book-covers-feJCV3-clipart](https://commons.wikimedia.org/wiki/File:Robot-clip-art-book-covers-feJCV3-clipart.png)" by [Wikimedia Commons](https://commons.wikimedia.org) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 - The beam-search implementation was borrowed as it is from [AllenNLP](15).
 - The vqa-maskrcnn-benchmark code used was forked from @meetshah1995's [fork](16) of the original repository.
-- The VisDial model is borrowed from [visdial-starter-challenge ][14]
-- The BUTD captioning model comes from this awesome repository [Pythia][10]
+- The VisDial model is borrowed from [visdial-starter-challenge ][14].
+- The BUTD captioning model comes from this awesome repository [Pythia][10].
 
 [1]: https://arxiv.org/abs/1611.08669
 [2]: http://deshraj.github.io
