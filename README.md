@@ -99,6 +99,7 @@ python manage.py migrate
 Launch two separate terminals and run worker and server code.   
 ```sh
 # run rabbitmq worker on first terminal
+# warning: on the first-run glove file ~ 860 Mb is downloaded, this is a one-time thing
 python worker_viscap.py
 
 # run development server on second terminal
