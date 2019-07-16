@@ -60,7 +60,9 @@ pip install -r requirements.txt
 #### Downloads
 Download the BUTD, Mask-RCNN and VisDial model checkpoints and their configuration files.
 ```sh
+cd viscap/
 sh viscap/download_models.sh
+cd ../
 ```
 
 #### Install Submodules
@@ -79,10 +81,17 @@ pip install -e .
 cd ../vqa-maskrcnn-benchmark/
 python setup.py build
 python setup.py develop
+cd ../../../
 ```
 #### Cuda Installation
 
 Note: CUDA and cuDNN is only required if you are going to use GPU. Download and install CUDA and cuDNN from [nvidia website][18].  
+
+#### NLTK
+We use `PunktSentenceTokenizer` from nltk, download it if you haven't already. 
+```sh
+python -c "import nltk; nltk.download('punkt')"
+```
 
 
 ## Let's run this now! 
@@ -96,6 +105,7 @@ python manage.py migrate
 Launch two separate terminals and run worker and server code.   
 ```sh
 # run rabbitmq worker on first terminal
+# warning: on the first-run glove file ~ 860 Mb is downloaded, this is a one-time thing
 python worker_viscap.py
 
 # run development server on second terminal
@@ -137,7 +147,8 @@ BSD
 - Visual Chatbot Image: "[Robot-clip-art-book-covers-feJCV3-clipart](https://commons.wikimedia.org/wiki/File:Robot-clip-art-book-covers-feJCV3-clipart.png)" by [Wikimedia Commons](https://commons.wikimedia.org) is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 - The beam-search implementation was borrowed as it is from [AllenNLP](15).
 - The vqa-maskrcnn-benchmark code used was forked from @meetshah1995's [fork](16) of the original repository.
-- TODO: Add about Pythia, visdial-starter. 
+- The VisDial model is borrowed from [visdial-starter-challenge ][14].
+- The BUTD captioning model comes from this awesome repository [Pythia][10].
 
 [1]: https://arxiv.org/abs/1611.08669
 [2]: http://deshraj.github.io
