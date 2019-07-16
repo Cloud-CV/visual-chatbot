@@ -87,6 +87,12 @@ cd ../../../
 
 Note: CUDA and cuDNN is only required if you are going to use GPU. Download and install CUDA and cuDNN from [nvidia website][18].  
 
+#### NLTK
+We use `PunktSentenceTokenizer` from nltk, download it if you haven't already. 
+```sh
+python -c "import nltk; nltk.download('punkt')"
+```
+
 
 ## Let's run this now! 
 #### Setup the database
