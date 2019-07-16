@@ -1,6 +1,7 @@
 Django==1.10.1
 channels==0.17.2
 asgi-redis==0.14.1
+asgiref==1.0.0
 pika==0.10.0
 websocket-client==0.37.0
 daphne==0.15.0
@@ -17,4 +18,3 @@ tensorboardX==1.2
 tensorflow==1.12.0
 torch==1.0.0
 tqdm==4.28.1
-uwsgi==2.0.13.1
