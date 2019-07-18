@@ -1,3 +1,8 @@
+""" Build the BUTD captioning model from Pythia.
+
+"""
+
+from typing import Dict
 import torch
 import yaml
 from pythia.common.registry import registry
@@ -7,16 +12,30 @@ from pythia.utils.configuration import ConfigNode
 
 
 # TODO: Docstrings and hints
-# Build Captioning Model
+def build_caption_model(caption_config: Dict, cuda_device: torch.device):
+    """
 
-def build_caption_model(caption_config, cuda_device):
+    Parameters
+    ----------
+    caption_config : Dict
+        Dict of BUTD and Detectron model configuration.
+    cuda_device : torch.device
+        Torch device to load the model to.
+
+    Returns
+    -------
+    (model, caption_processor, text_processor) : List[object]
+        Returns the model, caption and text processor
+
+
+    """
     with open(caption_config["butd_model"]["config_yaml"]) as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
-    config = ConfigNode(config)
-    config.training_parameters.evalai_inference = True
-    registry.register("config", config)
+        butd_config = yaml.load(f, Loader=yaml.FullLoader)
+    butd_config = ConfigNode(butd_config)
+    butd_config.training_parameters.evalai_inference = True
+    registry.register("config", butd_config)
 
-    caption_processor, text_processor = init_processors(caption_config, config)
+    caption_processor, text_processor = init_processors(caption_config, butd_config)
 
     if cuda_device == torch.device('cpu'):
         state_dict = torch.load(caption_config["butd_model"]["model_pth"],
@@ -24,7 +43,7 @@ def build_caption_model(caption_config, cuda_device):
     else:
         state_dict = torch.load(caption_config["butd_model"]["model_pth"])
 
-    model_config = config.model_attributes.butd
+    model_config = butd_config.model_attributes.butd
     model_config.model_data_dir = caption_config["model_data_dir"]
     model = BUTD(model_config)
     model.build()
@@ -41,8 +60,11 @@ def build_caption_model(caption_config, cuda_device):
     return model, caption_processor, text_processor
 
 
-def init_processors(caption_config, config):
-    captioning_config = config.task_attributes.captioning \
+def init_processors(caption_config: Dict, butd_config: Dict):
+    """Build the caption and text processors.
+
+    """
+    captioning_config = butd_config.task_attributes.captioning \
         .dataset_attributes.coco
     text_processor_config = captioning_config.processors.text_processor
     caption_processor_config = captioning_config.processors \
@@ -61,7 +83,7 @@ def init_processors(caption_config, config):
     return caption_processor, text_processor
 
 
-def multi_gpu_state_to_single(state_dict):
+def multi_gpu_state_to_single(state_dict: Dict):
     new_sd = {}
     for k, v in state_dict.items():
         if not k.startswith('module.'):

@@ -1,10 +1,8 @@
 import torch
-import sys
-
-sys.path.append("..")  # add parent to import modules
-from captioning.utils import pad_raw_image_batch
+from ..captioning.utils import pad_raw_image_batch
 
 
+# TODO: Better docstrings
 def image_id_from_path(image_path):
     """Given a path to an image, return its id.
 
@@ -21,21 +19,24 @@ def image_id_from_path(image_path):
 
     return int(image_path.split("/")[-1][-16:-4])
 
+
 def get_range_path(save_path, restrict_range):
+    """Build and return new path given the path and restricted range.
+
+    """
     start_range, stop_range = restrict_range[0], restrict_range[1]
     save_path = save_path.split('.')[0] + "_range_" + str(
         start_range) + "_to_" + str(stop_range) + '.h5'
     return save_path
 
 
-# used to handle variable size images inside the dataloader
 def collate_function(batch):
-    # print(f"Debug: collate_function, target shape {len(batch)}, {type(batch[0])}")
-    # I think batch is (n, item)
-    item_batch = {}
-    item_batch["image"] = []
-    item_batch["im_scales"] = []
-    item_batch["image_ids"] = []
+    """Handles variable size images inside the dataloader.
+
+    See here: https://discuss.pytorch.org/t/how-to-use-collate-fn/27181
+
+    """
+    item_batch = {"image": [], "im_scales": [], "image_ids": []}
     for item in batch:
         item_batch["image"].append(item["image"])
         item_batch["im_scales"].append(item["im_scale"])
@@ -48,8 +49,10 @@ def collate_function(batch):
     return item_batch
 
 
-# rearrange output from the model from process_feat_extraction function
 def rearrange_ouput(output):
+    """Rearrange output from the model for ``process_feat_extraction`` method.
+
+    """
     for key in output[0].keys():
         if isinstance(output[0][key], torch.Tensor):
             embed_dim = output[0][key].shape[-1]

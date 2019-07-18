@@ -3,12 +3,20 @@ from pythia.common.sample import Sample, SampleList
 import gc
 import torch
 
-# TODO: Docstrings, hints and line-wrapping
-# Wrapper class over Detection (feat-extraction) and Captioning model, that
-# defines predict function which takes in image path and generates the caption.
-class DetectCaption:
 
-    def __init__(self, detection_model, caption_model, caption_processor, text_processor, cuda_device):
+class DetectCaption:
+    """Wrapper class over Detection and Captioning models. Defines predict
+       function which takes in image path and returns caption and extracted
+       features.
+
+    """
+
+    def __init__(self,
+                 detection_model,
+                 caption_model,
+                 caption_processor,
+                 text_processor,
+                 cuda_device):
         self.detection_model = detection_model
         self.caption_model = caption_model
         self.cuda_device = cuda_device

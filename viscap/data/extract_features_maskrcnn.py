@@ -22,9 +22,9 @@ from maskrcnn_benchmark.modeling.detector import (
 from maskrcnn_benchmark.utils.model_serialization import (
     load_state_dict
 )
-from captioning.utils import process_feature_extraction, pad_raw_image_batch
-from visdialch.data.dataset import RawImageDataset
-from extract_utils import collate_function, rearrange_ouput, get_range_path
+from ..captioning.utils import process_feature_extraction
+from ..visdialch.data.dataset import RawImageDataset
+from .extract_utils import collate_function, rearrange_ouput, get_range_path
 
 # OpenCL may be enabled by default in OpenCV3; disable it because it's not
 # thread safe and causes unwanted GPU memory allocations.

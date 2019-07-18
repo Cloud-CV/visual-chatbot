@@ -96,7 +96,6 @@ enc_dec_model = EncoderDecoderModel(model_config, vocabulary).to(device)
 enc_dec_model.load_checkpoint(args.load_pthpath, device)
 
 # Build the detection and captioning model and load their checkpoints
-# Path to the checkpoints are picked from captioning_config
 detection_model = build_detection_model(captioning_config, device)
 caption_model, caption_processor, text_processor = build_caption_model(
     captioning_config,
