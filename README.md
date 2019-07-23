@@ -116,8 +116,13 @@ You are all set now. Visit http://127.0.0.1:8000 and you will have your demo run
 ## Issues
 If you run into incompatibility issues, please take a look [here][7] and [here][8]. 
 
-## Model Checkpoint Used and Feature Extraction
-To be added. 
+## Model Checkpoint and Features Used
+Performance on `v1.0 test-std` (trained on `v1.0` train + val):
+
+  Model  |  R@1   |  R@5   |  R@10  | MeanR  |  MRR   |  NDCG  |
+ ------- | ------ | ------ | ------ | ------ | ------ | ------ |
+[lf-gen-faster-rcnn-x101-demo][20]  | 0.3930 | 0.5757 | 0.6404 | 18.4950| 0.4863 | 0.5967 |
+
 
 ## Cite this work
 
