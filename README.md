@@ -174,3 +174,4 @@ BSD
 [17]: https://conda.io/docs/user-guide/install/download.html
 [18]: https://developer.nvidia.com/cuda-downloads
 [19]: https://github.com/yashkant
+[20]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/lf_gen_mask_rcnn_x101_train_demo.pth
