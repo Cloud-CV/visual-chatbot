@@ -125,10 +125,11 @@ Performance on `v1.0 test-std` (trained on `v1.0` train + val):
 
 Extracted features from `VisDial v1.0` used to train the above model are here: 
 
-- [features_mask_rcnn_x101_train.h5][21]: `Mask-RCNN` features with 100 proposals per image train split.
-- [features_mask_rcnn_x101_val.h5][22]: `Mask-RCNN` features with 100 proposals per image val split.
-- [features_mask_rcnn_x101_test.h5][23]: `Mask-RCNN` features with 100 proposals per image test split.
+- [features_mask_rcnn_x101_train.h5][21]: Mask-RCNN features with 100 proposals per image train split.
+- [features_mask_rcnn_x101_val.h5][22]: Mask-RCNN features with 100 proposals per image val split.
+- [features_mask_rcnn_x101_test.h5][23]: Mask-RCNN features with 100 proposals per image test split.
 
+*Note*: Above features have key `image_id` (from earlier versions) renamed as `image_ids`.
 
 ## Cite this work
 
