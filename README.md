@@ -123,6 +123,12 @@ Performance on `v1.0 test-std` (trained on `v1.0` train + val):
  ------- | ------ | ------ | ------ | ------ | ------ | ------ |
 [lf-gen-mask-rcnn-x101-demo][20]  | 0.3930 | 0.5757 | 0.6404 | 18.4950| 0.4863 | 0.5967 |
 
+Extracted features from `VisDial v1.0` used to train the above model are here: 
+
+- [features_mask_rcnn_x101_train.h5][21]: `Mask-RCNN` features with 100 proposals per image train split.
+- [features_mask_rcnn_x101_val.h5][22]: `Mask-RCNN` features with 100 proposals per image val split.
+- [features_mask_rcnn_x101_test.h5][23]: `Mask-RCNN` features with 100 proposals per image test split.
+
 
 ## Cite this work
 
@@ -175,3 +181,7 @@ BSD
 [18]: https://developer.nvidia.com/cuda-downloads
 [19]: https://github.com/yashkant
 [20]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/lf_gen_mask_rcnn_x101_train_demo.pth
+[21]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_train.h5
+[22]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_val.h5
+[23]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_test.h5
+
