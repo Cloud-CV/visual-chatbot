@@ -121,7 +121,7 @@ Performance on `v1.0 test-std` (trained on `v1.0` train + val):
 
   Model  |  R@1   |  R@5   |  R@10  | MeanR  |  MRR   |  NDCG  |
  ------- | ------ | ------ | ------ | ------ | ------ | ------ |
-[lf-gen-faster-rcnn-x101-demo][20]  | 0.3930 | 0.5757 | 0.6404 | 18.4950| 0.4863 | 0.5967 |
+[lf-gen-mask-rcnn-x101-demo][20]  | 0.3930 | 0.5757 | 0.6404 | 18.4950| 0.4863 | 0.5967 |
 
 
 ## Cite this work
