@@ -16,3 +16,5 @@ wget -O captioning/model_data/butd.yml https://dl.fbaipublicfiles.com/pythia/pre
 wget -O captioning/model_data/detectron_model.yaml https://dl.fbaipublicfiles.com/pythia/detectron_model/detectron_model.yaml
 wget -O captioning/model_data/detectron_weights.tar.gz https://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz
 tar xf captioning/model_data/detectron_weights.tar.gz -C captioning/
+
+cd ../
