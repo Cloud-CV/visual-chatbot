@@ -2,7 +2,7 @@ import os
 import torch
 
 from typing import Any, Dict, Optional
-from mosestokenizer import MosesDetokenizer
+from nltk.tokenize.treebank import TreebankWordDetokenizer
 from nltk.tokenize import word_tokenize
 from torch.nn.functional import normalize
 from urllib.parse import urlparse
@@ -247,11 +247,8 @@ class DemoSessionManager:
             first_eos_idx = answer.index(self.vocabulary.EOS_TOKEN)
             answer = answer[:first_eos_idx]
 
-        # MosesDetokenizer used to detokenize, it is separated from nltk.
-        # Refer: https://pypi.org/project/mosestokenizer/
-        with MosesDetokenizer('en') as detokenize:
-            answer = detokenize(answer)
-
+        answer = TreebankWordDetokenizer().detokenize(answer)
+        
         # Update the dialog history and return answer
         self._update(user_question, answer)
         return answer
