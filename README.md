@@ -46,7 +46,7 @@ You can use Anaconda or Miniconda to setup this code base. Download and install 
 
 ```sh
 # clone and download submodules
-git clone --recursive https://www.github.com/cloud-cv/visual-chatbot.git
+git clone --recursive https://www.github.com/yashkant/visual-chatbot.git
 
 # create and activate new environment
 conda create -n vischat python=3.6.8
