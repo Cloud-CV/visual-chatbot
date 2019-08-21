@@ -61,7 +61,6 @@ pip install -r requirements.txt
 Download the BUTD, Mask-RCNN and VisDial model checkpoints and their configuration files.
 ```sh
 sh viscap/download_models.sh
-cd ../
 ```
 
 #### Install Submodules
