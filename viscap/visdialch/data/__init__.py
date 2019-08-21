@@ -1,0 +1,1 @@
+from .vocabulary import Vocabulary

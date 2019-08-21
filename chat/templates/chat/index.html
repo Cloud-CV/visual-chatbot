@@ -325,8 +325,6 @@ function submitQuestion() {
     if (question.length >= 3) {
         $("#question").val('');
         showUserQuestion(question);
-        // Now remove "?" from the question
-        question = question.replace(/\?/g, '');
 
         if (image == "") { // Handles the condition when no image is uploaded yet 
             message = "Ummm...I think you forgot to upload an image. Please upload an image to continue. :-)";
