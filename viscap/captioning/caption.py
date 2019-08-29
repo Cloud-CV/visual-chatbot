@@ -11,7 +11,6 @@ from pythia.tasks.processors import VocabProcessor, CaptionProcessor
 from pythia.utils.configuration import ConfigNode
 
 
-# TODO: Docstrings and hints
 def build_caption_model(caption_config: Dict, cuda_device: torch.device):
     """
 
@@ -91,5 +90,3 @@ def multi_gpu_state_to_single(state_dict: Dict):
         k1 = k[7:]
         new_sd[k1] = v
     return new_sd
-
-
