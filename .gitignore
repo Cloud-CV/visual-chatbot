@@ -5,6 +5,8 @@ viscap/captioning/detectron/
 viscap/captioning/model_data/
 viscap/checkpoints/
 viscap/data/
+env/
+static/
 
 *.pyc
 db.sqlite3
