@@ -23,6 +23,16 @@ def read_image(image_path):
 def image_transform(img):
     im = np.array(img).astype(np.float32)
     im = im[:, :, ::-1]
+    
+    # Handle B&W images
+    if len(im.shape) == 2:
+        im = np.repeat(im[:, :, np.newaxis], 3, axis=2)
+    
+    # Handle images with alpha channel
+    if len(im.shape) == 4:
+        import cv2
+        im = cv2.cvtColor(im, cv2.COLOR_BGRA2BGR)
+    
     # Transform used for BUTD model in pythia trained on coco
     im -= np.array([102.9801, 115.9465, 122.7717])
     im_shape = im.shape
