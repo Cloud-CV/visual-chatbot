@@ -313,8 +313,8 @@ function showBotResponse(message) {
     $(botChatDiv).prepend(botColDiv);
     $(botChatDiv).prepend(botImage);
     $(".messages").append(botChatDiv);
-    $("html, body").animate({
-        scrollTop: $(document).height() - $(window).height()
+    $(".messages").animate({
+        scrollTop: $(".messages").scrollHeight
     }, 100);
 
 }
