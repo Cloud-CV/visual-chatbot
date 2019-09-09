@@ -1,5 +1,12 @@
-data/
+# Demo
+/data/
 media/
+viscap/captioning/detectron/
+viscap/captioning/model_data/
+viscap/checkpoints/
+viscap/data/
+env/
+static/
 
 *.pyc
 db.sqlite3
@@ -9,3 +16,12 @@ ques_feat.json
 models/*.caffemodel
 models/*.lua
 models/*.prototxt
+*.zip
+
+# Pycharm
+.idea/
+
+# Installed packages
+pytorch/
+migrations/
+!migrations/__init__.py

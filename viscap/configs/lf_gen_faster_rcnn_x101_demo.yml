@@ -1,0 +1,37 @@
+# Keep only vocabulary builder argument
+dataset:
+  image_features_train_h5: 'viscap/data/features_faster_rcnn_x101_train.h5'
+  image_features_val_h5: 'viscap/data/features_faster_rcnn_x101_val.h5'
+  image_features_test_h5: 'viscap/data/features_faster_rcnn_x101_test.h5'
+  word_counts_json: 'viscap/data/visdial_1.0_word_counts_train.json'
+
+  img_norm: 1
+  concat_history: true
+  max_sequence_length: 20
+  vocab_min_count: 5
+
+
+# Model related arguments
+model:
+  encoder: 'lf'
+  decoder: 'gen'
+  mode: 'demo'
+  img_feature_size: 2048
+  word_embedding_size: 300
+  lstm_hidden_size: 512
+  lstm_num_layers: 2
+  dropout: 0.2
+  beam_search: true
+  beam_size: 10
+
+# Captioning related arguments
+captioning:
+  model_data_dir: '../../'
+  text_caption_processor_vocab_txt: 'viscap/captioning/model_data/vocabulary_captioning_thresh5.txt'
+  butd_model:
+    config_yaml: 'viscap/captioning/model_data/butd.yml'
+    model_pth: 'viscap/captioning/model_data/butd.pth'
+  detectron_model:
+    config_yaml: 'viscap/captioning/model_data/detectron_model.yaml'
+    model_pth: 'viscap/captioning/model_data/detectron_model.pth'
+    feat_name: 'fc6'
