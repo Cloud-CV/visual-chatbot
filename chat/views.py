@@ -23,7 +23,7 @@ def home(request, template_name="chat/index.html"):
             img_path = request.POST.get("img_path")
             job_id = request.POST.get("job_id")
             history = request.POST.get("history", "")
-            img_path = urllib.parse.unquote(img_path)
+            img_path = urllib.unquote(img_path)
             abs_image_path = str(img_path)
             viscap(str(abs_image_path), socketid, job_id, str(question), str(history))
 
