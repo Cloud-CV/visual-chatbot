@@ -179,5 +179,4 @@ def load_checkpoint(checkpoint_pthpath, device=None):
             )
     # load encoder, decoder, optimizer state_dicts
     components = torch.load(checkpoint_pthpath, map_location=device)
-
     return components["model"], components["optimizer"]

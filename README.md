@@ -145,6 +145,7 @@ If you find this code useful, consider citing our work:
 ```
 
 ## Contributors
+* [Rishabh Jain][24] (rishabhjain@gatech.edu)
 * [Yash Kant][19] (ysh.kant@gmail.com)
 * [Deshraj Yadav][2] (deshraj@gatech.edu)
 * [Abhishek Das][3] (abhshkdz@gatech.edu)
@@ -184,4 +185,6 @@ BSD
 [21]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_train.h5
 [22]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_val.h5
 [23]: https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_mask_rcnn_x101_test.h5
+[24]: https://rishabhjain2018.github.io/
+
 

@@ -1,4 +1,5 @@
-Django==1.10.1
+
+Django==1.11.23
 channels==0.17.2
 asgi-redis==0.14.1
 asgiref==1.0.0
@@ -9,13 +10,13 @@ psycopg2==2.7.1
 redis==2.10.6
 cython==0.29.1
 h5py==2.8.0
-nltk==3.4
+nltk==3.4.5
 numpy==1.15.4
 Pillow==5.3.0
 pyyaml>=4.2b1
 six==1.11.0
 tensorboardX==1.2
-tensorflow==1.12.0
+tensorflow==1.12.2
 torch==1.0.0
 tqdm==4.28.1
 yacs==0.1.6
