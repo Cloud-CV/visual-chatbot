@@ -146,7 +146,7 @@ socket.onmessage = function(response) {
         $(botChatDiv).prepend(botColDiv);
         $(botChatDiv).prepend(botImage);
         $(".messages").append(botChatDiv);
-        $("body").animate({
+        $("body, html").animate({
             scrollTop: $(document).height() - $(window).height()
         }, {
             complete: function() {
@@ -313,7 +313,7 @@ function showBotResponse(message) {
     $(botChatDiv).prepend(botColDiv);
     $(botChatDiv).prepend(botImage);
     $(".messages").append(botChatDiv);
-    $("html, body").animate({
+    $("body, html").animate({
         scrollTop: $(document).height() - $(window).height()
     }, 100);
 
