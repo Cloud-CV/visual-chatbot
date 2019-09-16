@@ -7,6 +7,11 @@ viscap/checkpoints/
 viscap/data/
 env/
 static/
+chat.ini
+server-log.txt
+uwsgi_params
+visual_dialog_nginx.conf
+
 
 *.pyc
 db.sqlite3
