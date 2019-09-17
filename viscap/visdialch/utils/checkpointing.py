@@ -177,10 +177,6 @@ def load_checkpoint(checkpoint_pthpath, device=None):
                 f"({checkpoint_commit_sha}) at which checkpoint was saved,"
                 " are different. This might affect reproducibility."
             )
-
     # load encoder, decoder, optimizer state_dicts
-    if device == torch.device('cpu'):
-        components = torch.load(checkpoint_pthpath, map_location='cpu')
-    else:
-        components = torch.load(checkpoint_pthpath)
+    components = torch.load(checkpoint_pthpath, map_location=device)
     return components["model"], components["optimizer"]
