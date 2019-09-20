@@ -12,6 +12,9 @@ from .models import Job
 from .sender import viscap
 
 
+def landing(request, template_name="chat/landing.html"):
+    return render(request, template_name)
+
 def home(request, template_name="chat/index.html"):
     socketid = uuid.uuid4()
     intro_message = random.choice(constants.BOT_INTORDUCTION_MESSAGE)

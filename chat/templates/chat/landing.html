@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Visual Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href='https://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900'
+        rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
+    <meta name="description" content="Visual ChatBot: Lets talk to bot!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript"
+        src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/jquery.scrolltofixed/0.1/jquery-scrolltofixed-min.js"></script>
+    <script src="{% static 'js/dropzone.js' %}"></script>
+</head>
+<style>
+    nav .nav-wrapper {
+        background: #3B5998 !important;
+    }
+
+    .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+        color: #3B5998;
+    }
+</style>
+
+<body>
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo center">Visual Chatbot</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse" id="menu-icon"><i
+                            class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li class="about"><a href="#aboutModal">About</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li class="about"><a href="#aboutModal">About</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container valign-wrapper">
+        <div class="row">
+            <div class="col s12 m4 offset-m2">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{% static 'images/sample-1.jpg' %}">
+                        <span class="card-title">Visual Dialog 1</span>
+                    </div>
+                    <div class="card-content">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been
+                            the industry's standard
+                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+                            it
+                            to make a type specimen
+                            book. It has survived not only five centuries, but also the leap into electronic
+                            typesetting,
+                            remaining essentially
+                            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                            Lorem
+                            Ipsum passages, and more
+                            recently with desktop publishing software like Aldus PageMaker including versions of Lorem
+                            Ipsum.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" target="_blank">Start Chat</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 offset">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{% static 'images/sample-1.jpg' %}">
+                        <span class="card-title">Visual Dialog 2</span>
+                    </div>
+                    <div class="card-content">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been
+                            the industry's standard
+                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+                            it
+                            to make a type specimen
+                            book. It has survived not only five centuries, but also the leap into electronic
+                            typesetting,
+                            remaining essentially
+                            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                            Lorem
+                            Ipsum passages, and more
+                            recently with desktop publishing software like Aldus PageMaker including versions of Lorem
+                            Ipsum.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" target="_blank">Start Chat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'chat/modal.html'%}
+</body>
+
+</html>
