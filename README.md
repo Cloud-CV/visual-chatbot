@@ -18,7 +18,7 @@ What has changed since the last version?
 ---------------------------------------------------
 The model-building code is completely shifted to Pytorch, we have put in a much improved [Bottom Up Top Down][12] captioning model from [Pythia][10] and Mask-RCNN feature extractor from [maskrcnn-benchmark][13]. The Visdial model is borrowed from [visdial-challenge-starter][14] code. 
 
-Please follow the instructions below to get the demo running on your local machine. For the previous version of this repository which supports Torch-Lua based models see [tag](). 
+Please follow the instructions below to get the demo running on your local machine. For the previous version of this repository which supports Torch-Lua based models see [commit](https://github.com/Cloud-CV/visual-chatbot/tree/f5db5a099cba044a6dee3830fa25a66ef4f1b08b). 
 
 Setup and Dependencies
 ------------------------------
