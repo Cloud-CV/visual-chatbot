@@ -46,15 +46,16 @@ You can use Anaconda or Miniconda to setup this code base. Download and install 
 
 ```sh
 # clone and download submodules
-git clone https://www.github.com/yashkant/visual-chatbot.git
-git submodule update init --recursive
+git clone https://www.github.com/Cloud-CV/visual-chatbot.git
+cd visual-chatbot/
+git submodule init
+git submodule update
 
 # create and activate new environment
 conda create -n vischat python=3.6.8
 conda activate vischat
 
 # install the requirements of chatbot and visdial-starter code
-cd visual-chatbot/
 pip install -r requirements.txt
 ```
 
