@@ -27,7 +27,7 @@ def image_transform(img):
     # Converting 2 channeled images to grayscale:
     # https://stackoverflow.com/questions/56531491
     if im.shape[2] == 2:
-        im = cv2.cvtColor(im, cv2.COLOR_BGRA2BGR)
+        im = Image.open(im).convert('L')
 	assert len(im.shape) == 2
 
     # Handle B&W images
