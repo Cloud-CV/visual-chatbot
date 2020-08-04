@@ -249,6 +249,10 @@ class DemoSessionManager:
 
         answer = TreebankWordDetokenizer().detokenize(answer)
         
+        if "n't" in answer:
+            idx_ = answer.find("n't")
+            answer = ''.join([answer[i] for i in range(len(answer)) if i != idx_-1]) 
+        
         # Update the dialog history and return answer
         self._update(user_question, answer)
         return answer
