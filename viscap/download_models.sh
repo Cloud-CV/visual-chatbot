@@ -4,7 +4,7 @@ cd viscap/
 
 # download visdial model checkpoint and config
 mkdir checkpoints/
-wget -O checkpoints/lf_gen_faster_rcnn_x101_train.pth https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/lf_gen_faster_rcnn_x101_train.pth
+wget -O checkpoints/lf_gen_mask_rcnn_x101_train_demo.pth https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/lf_gen_mask_rcnn_x101_train_demo.pth
 wget -O data/visdial_1.0_word_counts_train.json https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/visdial_1.0_word_counts_train.json
 
 # download mask-rcnn, butd model checkpoints and configs

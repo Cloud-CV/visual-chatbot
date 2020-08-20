@@ -36,7 +36,7 @@ parser.add_argument(
 
 parser.add_argument(
     "--load-pthpath",
-    default="viscap/checkpoints/lf_gen_faster_rcnn_x101_train.pth",
+    default="viscap/checkpoints/lf_gen_mask_rcnn_x101_train_demo.pth",
     help="Path to .pth file of pretrained checkpoint.",
 )
 
