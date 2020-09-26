@@ -16,7 +16,7 @@ Pillow==5.3.0
 pyyaml>=4.2b1
 six==1.11.0
 tensorboardX==1.2
-tensorflow==1.12.2
+tensorflow==1.15.4
 torch==1.0.0
 tqdm==4.28.1
 yacs==0.1.6
