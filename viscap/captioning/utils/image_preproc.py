@@ -22,6 +22,13 @@ def read_image(image_path):
 
 def image_transform(img):
     im = np.array(img).astype(np.float32)
+    
+    # Handle images with Luminosity and Alpha channel
+    # Converting 2 channeled images to grayscale:
+    # https://stackoverflow.com/questions/56531491
+    if im.shape[2] == 2:
+        im = Image.open(im).convert('L')
+	assert len(im.shape) == 2
 
     # Handle B&W images
     if len(im.shape) == 2:
@@ -31,8 +38,9 @@ def image_transform(img):
     if im.shape[2] == 4:
         im = cv2.cvtColor(im, cv2.COLOR_BGRA2BGR)
 
+    assert im.shape[2] == 3
+ 
     im = im[:, :, ::-1]
-    
     # Transform used for BUTD model in pythia trained on coco
     im -= np.array([102.9801, 115.9465, 122.7717])
     im_shape = im.shape
