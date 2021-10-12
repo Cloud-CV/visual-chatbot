@@ -20,5 +20,5 @@ tensorflow==1.12.2
 torch==1.0.0
 tqdm==4.28.1
 yacs==0.1.6
-opencv-python==4.1.0.25
+opencv-python==4.2.0.32
 torchtext==0.3.1
